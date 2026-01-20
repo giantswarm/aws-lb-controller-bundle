@@ -2,8 +2,8 @@
 
 # AWS Load Balancer Controller chart
 
-Giant Swarm offers an `aws-load-balancer-controller-bundle` Managed App which can be installed in tenant clusters.
-Here we define the `aws-load-balancer-controller-bundle` and `aws-load-balancer-controller` charts with their templates and default configuration.
+Giant Swarm offers an `aws-lb-controller-bundle` Managed App which can be installed in tenant clusters.
+Here we define the `aws-lb-controller-bundle` and `aws-load-balancer-controller` charts with their templates and default configuration.
 
 - [AWS Load Balancer Controller chart](#aws-load-balancer-controller-chart)
   - [Introduction](#introduction)
@@ -21,7 +21,7 @@ Here we define the `aws-load-balancer-controller-bundle` and `aws-load-balancer-
 
 This repository contains two Helm charts:
 
-- `helm/aws-load-balancer-controller-bundle/`: Main chart installed on the management cluster, contains the workload cluster chart and the required AWS IAM role.
+- `helm/aws-lb-controller-bundle/`: Main chart installed on the management cluster, contains the workload cluster chart and the required AWS IAM role.
 - `helm/aws-load-balancer-controller/`: Workload cluster chart that contains the actual AWS Load Balancer Controller setup.
 
 Users only need to install the bundle chart on the management cluster, which in turn will deploy the workload cluster chart.
@@ -38,7 +38,7 @@ Install the bundle chart on the management cluster using an App CR:
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
-  name: coyote-aws-load-balancer-controller-bundle
+  name: coyote-aws-lb-controller-bundle
   namespace: org-acme
 spec:
   catalog: giantswarm
@@ -48,7 +48,7 @@ spec:
       namespace: org-acme
   kubeConfig:
     inCluster: true
-  name: aws-load-balancer-controller-bundle
+  name: aws-lb-controller-bundle
   namespace: org-acme
   version: 3.0.0
 ```

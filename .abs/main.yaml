@@ -1,5 +1,5 @@
 replace-chart-version-with-git: true
 generate-metadata: true
-chart-dir: ./helm/aws-load-balancer-controller
+chart-dir: ./helm/aws-lb-controller
 catalog-base-url: https://giantswarm.github.io/giantswarm-catalog/
 #ct-config: ./.circleci/ct-config.yaml

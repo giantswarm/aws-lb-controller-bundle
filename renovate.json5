@@ -6,7 +6,7 @@
   // Take `ignorePaths` from preset but override for repo-specific files
   "packageRules": [
     {
-      "matchFileNames": ["helm/aws-load-balancer-controller/values.yaml", "helm/aws-load-balancer-controller-bundle/values.yaml"],
+      "matchFileNames": ["helm/aws-load-balancer-controller/values.yaml", "helm/aws-lb-controller-bundle/values.yaml"],
       "enabled": false,
     },
   ]

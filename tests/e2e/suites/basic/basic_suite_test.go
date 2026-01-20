@@ -28,8 +28,6 @@ func TestBasic(t *testing.T) {
 		WithInCluster(true).
 		// Empty string forces the framework to install it in the created cluster org namespace
 		WithInstallNamespace("").
-		// Use a shorter name otherwise we go over the limits when prefixed with the cluster name
-		WithInstallName("aws-lbc-bundle").
 		// If this is an upgrade test or not.
 		// If true, the suite will first install the latest released version of the app before upgrading to the test version
 		WithIsUpgrade(isUpgrade).
