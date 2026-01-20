@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-01-20
+
 ### Changed
 
 - Move Giant Swarm specific values to the bundle chart. Clean up the aws-load-balancer-controller chart from any GS specific stuff.
@@ -213,7 +215,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.2.1...v3.0.0
 [2.2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.1.0...v2.2.0

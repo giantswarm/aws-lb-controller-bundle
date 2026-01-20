@@ -3,7 +3,7 @@ appVersion: "v2.8.3"
 name: aws-lb-controller-bundle
 description: AWS Load Balancer Controller Bundle with Crossplane resources
 icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
-version: ""
+version: "4.0.0"
 kubeVersion: ">=1.17.0-0"
 home: https://github.com/giantswarm/aws-load-balancer-controller-app
 sources:
