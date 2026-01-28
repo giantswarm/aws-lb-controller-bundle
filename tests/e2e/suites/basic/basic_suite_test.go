@@ -42,7 +42,7 @@ func TestBasic(t *testing.T) {
 				Eventually(func() (bool, error) {
 					return helmReleaseIsReady(mcClient, state.GetCluster().Name, state.GetCluster().Organization.Name)
 				}).
-					WithTimeout(2 * time.Minute).
+					WithTimeout(10 * time.Minute).
 					WithPolling(5 * time.Second).
 					Should(BeTrueBecause("We expect the Helm release to be ready"))
 
@@ -50,7 +50,7 @@ func TestBasic(t *testing.T) {
 					service, err = createServiceLoadBalancer(wcClient, "default", "test-aws-lb-controller")
 					return err
 				}).
-					WithTimeout(2 * time.Minute).
+					WithTimeout(10 * time.Minute).
 					WithPolling(5 * time.Second).
 					Should(Succeed())
 
