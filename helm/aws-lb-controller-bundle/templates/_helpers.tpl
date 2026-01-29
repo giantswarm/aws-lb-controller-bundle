@@ -32,8 +32,8 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{- define "cluster-name" -}}
-{{- if .Values.clusterID -}}
-{{- .Values.clusterID -}}
+{{- if .Values.clusterName -}}
+{{- .Values.clusterName -}}
 {{- else -}}
 {{- $name := .Release.Name -}}
 {{- range $suffix := list (printf "-%s" .Chart.Name) "-alb-controller-bundle" "-aws-lbc-bundle" "-albc-bundle" -}}
@@ -111,7 +111,7 @@ Set Giant Swarm specific values.
 {{- end -}}
 
 {{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
-{{/*    - "kubernetes.io/cluster/$clusterID=owned"*/}}
+{{/*    - "kubernetes.io/cluster/$clusterName=owned"*/}}
 {{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
 {{- $_ := set .Values.defaultTags (printf "kubernetes.io/cluster/%s" $clusterName) "owned" }}
 {{- $_ := set .Values.defaultTags "kubernetes.io/service-name" "aws-alb-controller" }}

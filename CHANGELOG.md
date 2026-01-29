@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade aws-load-balancer-controller from v2.8.3 to v3.0.0.
+- Remove PSPs
+- Move PolicyException to policy-exceptions namespace.
+- Migrate from ClusterID to ClusterName
+- Add additional permissions elasticloadbalancing:DescribeListenerAttributes
+
 ## [4.0.0] - 2026-01-20
 
 ### Changed

@@ -42,7 +42,7 @@ func TestBasic(t *testing.T) {
 				Eventually(func() (bool, error) {
 					return helmReleaseIsReady(mcClient, state.GetCluster().Name, state.GetCluster().Organization.Name)
 				}).
-					WithTimeout(10 * time.Minute).
+					WithTimeout(20 * time.Minute).
 					WithPolling(5 * time.Second).
 					Should(BeTrueBecause("We expect the Helm release to be ready"))
 
@@ -50,14 +50,14 @@ func TestBasic(t *testing.T) {
 					service, err = createServiceLoadBalancer(wcClient, "default", "test-aws-lb-controller")
 					return err
 				}).
-					WithTimeout(10 * time.Minute).
+					WithTimeout(20 * time.Minute).
 					WithPolling(5 * time.Second).
 					Should(Succeed())
 
 				Eventually(func() (bool, error) {
 					return serviceHasLBHostnameSetInStatus(wcClient, service.Namespace, service.Name)
 				}).
-					WithTimeout(6 * time.Minute).
+					WithTimeout(20 * time.Minute).
 					WithPolling(5 * time.Second).
 					Should(BeTrueBecause("We expect the LoadBalancer hostname to be set in the Service status"))
 

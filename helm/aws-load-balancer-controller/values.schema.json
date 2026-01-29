@@ -1,568 +1,605 @@
 {
-  "$schema": "http://json-schema.org/schema#",
-  "type": "object",
-  "properties": {
-    "additionalLabels": {
-      "type": "object"
-    },
-    "affinity": {
-      "type": "object"
-    },
-    "awsApiEndpoints": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "awsApiThrottle": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "awsMaxRetries": {
-      "type": [
-        "null",
-        "integer"
-      ]
-    },
-    "backendSecurityGroup": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "cluster": {
-      "type": "object",
-      "properties": {
-        "dnsDomain": {
-          "type": "string"
-        }
-      }
-    },
-    "clusterName": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "clusterSecretsPermissions": {
-      "type": "object",
-      "properties": {
-        "allowAllSecrets": {
-          "type": "boolean"
-        }
-      }
-    },
-    "configureDefaultAffinity": {
-      "type": "boolean"
-    },
-    "controllerConfig": {
-      "type": "object",
-      "properties": {
-        "featureGates": {
-          "type": "object"
-        }
-      }
-    },
-    "createIngressClassResource": {
-      "type": "boolean"
-    },
-    "defaultSSLPolicy": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "defaultTags": {
-      "type": "object"
-    },
-    "defaultTargetType": {
-      "type": "string"
-    },
-    "deploymentAnnotations": {
-      "type": "object"
-    },
-    "disableIngressClassAnnotation": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "disableIngressGroupNameAnnotation": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "disableRestrictedSecurityGroupRules": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "dnsPolicy": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "enableBackendSecurityGroup": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "enableCertManager": {
-      "type": "boolean"
-    },
-    "enableEndpointSlices": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "enablePodReadinessGateInject": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "enableServiceMutatorWebhook": {
-      "type": "boolean"
-    },
-    "enableShield": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "enableWaf": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "enableWafv2": {
-      "type": [
-        "null",
-        "boolean"
-      ]
-    },
-    "env": {
-      "type": [
-        "null",
-        "object"
-      ]
-    },
-    "externalManagedTags": {
-      "type": "array"
-    },
-    "extraVolumeMounts": {
-      "type": [
-        "null",
-        "array"
-      ]
-    },
-    "extraVolumes": {
-      "type": [
-        "null",
-        "array"
-      ]
-    },
-    "fullnameOverride": {
-      "type": "string"
-    },
-    "global": {
-      "type": "object",
-      "properties": {
-        "podSecurityStandards": {
-          "type": "object",
-          "properties": {
-            "enforced": {
-              "type": "boolean"
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "additionalLabels": {
+            "type": "object"
+        },
+        "affinity": {
+            "type": "object"
+        },
+        "autoscaling": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "maxReplicas": {
+                    "type": "integer"
+                },
+                "minReplicas": {
+                    "type": "integer"
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "integer"
+                }
             }
-          }
-        }
-      }
-    },
-    "hostNetwork": {
-      "type": "boolean"
-    },
-    "image": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
         },
-        "pullPolicy": {
-          "type": "string"
+        "awsApiEndpoints": {
+            "type": "null"
         },
-        "registry": {
-          "type": "string"
+        "awsApiThrottle": {
+            "type": "null"
         },
-        "tag": {
-          "type": "string"
-        }
-      }
-    },
-    "imagePullSecrets": {
-      "type": "array"
-    },
-    "ingressClass": {
-      "type": "string"
-    },
-    "ingressClassConfig": {
-      "type": "object",
-      "properties": {
-        "default": {
-          "type": "boolean"
-        }
-      }
-    },
-    "ingressClassParams": {
-      "type": "object",
-      "properties": {
-        "create": {
-          "type": "boolean"
+        "awsMaxRetries": {
+            "type": "null"
         },
-        "name": {
-          "type": [
-            "null",
-            "string"
-          ]
+        "backendSecurityGroup": {
+            "type": "null"
         },
-        "spec": {
-          "type": "object"
-        }
-      }
-    },
-    "ingressMaxConcurrentReconciles": {
-      "type": [
-        "null",
-        "integer"
-      ]
-    },
-    "keepTLSSecret": {
-      "type": "boolean"
-    },
-    "livenessProbe": {
-      "type": "object",
-      "properties": {
-        "failureThreshold": {
-          "type": "integer"
-        },
-        "httpGet": {
-          "type": "object",
-          "properties": {
-            "path": {
-              "type": "string"
-            },
-            "port": {
-              "type": "integer"
-            },
-            "scheme": {
-              "type": "string"
+        "certDiscovery": {
+            "type": "object",
+            "properties": {
+                "allowedCertificateAuthorityARNs": {
+                    "type": "string"
+                }
             }
-          }
         },
-        "initialDelaySeconds": {
-          "type": "integer"
-        },
-        "timeoutSeconds": {
-          "type": "integer"
-        }
-      }
-    },
-    "logLevel": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "metricsBindAddr": {
-      "type": "string"
-    },
-    "nameOverride": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "nodeSelector": {
-      "type": "object"
-    },
-    "objectSelector": {
-      "type": "object",
-      "properties": {
-        "matchExpressions": {
-          "type": [
-            "null",
-            "array"
-          ]
-        },
-        "matchLabels": {
-          "type": [
-            "null",
-            "object"
-          ]
-        }
-      }
-    },
-    "podAnnotations": {
-      "type": "object"
-    },
-    "podDisruptionBudget": {
-      "type": "object",
-      "properties": {
-        "minAvailable": {
-          "type": "integer"
-        }
-      }
-    },
-    "podLabels": {
-      "type": "object"
-    },
-    "podSecurityContext": {
-      "type": "object",
-      "properties": {
-        "fsGroup": {
-          "type": "integer"
-        },
-        "seccompProfile": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string"
-            },
-            "runAsNonRoot": {
-              "type": "boolean"
+        "certManager": {
+            "type": "object",
+            "properties": {
+                "duration": {
+                    "type": "string"
+                },
+                "renewBefore": {
+                    "type": "string"
+                },
+                "revisionHistoryLimit": {
+                    "type": "null"
+                },
+                "rootCert": {
+                    "type": "object",
+                    "properties": {
+                        "duration": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-    },
-    "priorityClassName": {
-      "type": "string"
-    },
-    "rbac": {
-      "type": "object",
-      "properties": {
-        "create": {
-          "type": "boolean"
-        }
-      }
-    },
-    "region": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "replicaCount": {
-      "type": "integer"
-    },
-    "resources": {
-      "type": "object",
-      "properties": {
-        "limits": {
-          "type": "object",
-          "properties": {
-            "cpu": {
-              "type": "string"
-            },
-            "memory": {
-              "type": "string"
+        },
+        "cluster": {
+            "type": "object",
+            "properties": {
+                "dnsDomain": {
+                    "type": "string"
+                }
             }
-          }
         },
-        "requests": {
-          "type": "object",
-          "properties": {
-            "cpu": {
-              "type": "string"
-            },
-            "memory": {
-              "type": "string"
+        "clusterName": {
+            "type": "string"
+        },
+        "clusterSecretsPermissions": {
+            "type": "object",
+            "properties": {
+                "allowAllSecrets": {
+                    "type": "boolean"
+                }
             }
-          }
-        }
-      }
-    },
-    "securityContext": {
-      "type": "object",
-      "properties": {
-        "allowPrivilegeEscalation": {
-          "type": "boolean"
         },
-        "readOnlyRootFilesystem": {
-          "type": "boolean"
+        "configureDefaultAffinity": {
+            "type": "boolean"
         },
-        "runAsNonRoot": {
-          "type": "boolean"
-        },
-        "seccompProfile": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string"
+        "controllerConfig": {
+            "type": "object",
+            "properties": {
+                "featureGates": {
+                    "type": "object"
+                }
             }
-          }
-        }
-      }
-    },
-    "serviceAccount": {
-      "type": "object",
-      "properties": {
-        "annotations": {
-          "type": "object"
         },
-        "automountServiceAccountToken": {
-          "type": "boolean"
+        "createIngressClassResource": {
+            "type": "boolean"
         },
-        "create": {
-          "type": "boolean"
+        "defaultLoadBalancerScheme": {
+            "type": "null"
+        },
+        "defaultSSLPolicy": {
+            "type": "null"
+        },
+        "defaultTags": {
+            "type": "object"
+        },
+        "defaultTargetType": {
+            "type": "string"
+        },
+        "deploymentAnnotations": {
+            "type": "object"
+        },
+        "disableIngressClassAnnotation": {
+            "type": "null"
+        },
+        "disableIngressGroupNameAnnotation": {
+            "type": "null"
+        },
+        "disableRestrictedSecurityGroupRules": {
+            "type": "null"
+        },
+        "dnsPolicy": {
+            "type": "null"
+        },
+        "enableBackendSecurityGroup": {
+            "type": "null"
+        },
+        "enableCertManager": {
+            "type": "boolean"
+        },
+        "enableEndpointSlices": {
+            "type": "null"
+        },
+        "enableManageBackendSecurityGroupRules": {
+            "type": "null"
+        },
+        "enablePodReadinessGateInject": {
+            "type": "null"
+        },
+        "enableServiceMutatorWebhook": {
+            "type": "boolean"
+        },
+        "enableShield": {
+            "type": "null"
+        },
+        "enableWaf": {
+            "type": "null"
+        },
+        "enableWafv2": {
+            "type": "null"
+        },
+        "env": {
+            "type": "null"
+        },
+        "envFrom": {
+            "type": "null"
+        },
+        "externalManagedTags": {
+            "type": "array"
+        },
+        "extraVolumeMounts": {
+            "type": "null"
+        },
+        "extraVolumes": {
+            "type": "null"
+        },
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "globalAcceleratorMaxConcurrentReconciles": {
+            "type": "null"
+        },
+        "globalAcceleratorMaxExponentialBackoffDelay": {
+            "type": "null"
+        },
+        "hostNetwork": {
+            "type": "boolean"
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
         },
         "imagePullSecrets": {
-          "type": [
-            "null",
-            "string"
-          ]
+            "type": "array"
         },
-        "name": {
-          "type": [
-            "null",
-            "string"
-          ]
+        "ingressClass": {
+            "type": "string"
+        },
+        "ingressClassConfig": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ingressClassParams": {
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "null"
+                },
+                "spec": {
+                    "type": "object"
+                }
+            }
+        },
+        "ingressMaxConcurrentReconciles": {
+            "type": "null"
+        },
+        "lbStabilizationMonitorInterval": {
+            "type": "null"
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "scheme": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            }
+        },
+        "loadBalancerClass": {
+            "type": "null"
+        },
+        "logLevel": {
+            "type": "null"
+        },
+        "maxTargetsPerTargetGroup": {
+            "type": "null"
+        },
+        "metricsBindAddr": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "objectSelector": {
+            "type": "object",
+            "properties": {
+                "matchExpressions": {
+                    "type": "null"
+                },
+                "matchLabels": {
+                    "type": "null"
+                }
+            }
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podDisruptionBudget": {
+            "type": "object",
+            "properties": {
+                "minAvailable": {
+                    "type": "integer"
+                },
+                "unhealthyPodEvictionPolicy": {
+                    "type": "string"
+                }
+            }
+        },
+        "podLabels": {
+            "type": "object"
+        },
+        "podMutatorWebhookConfig": {
+            "type": "object",
+            "properties": {
+                "failurePolicy": {
+                    "type": "string"
+                }
+            }
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "fsGroup": {
+                    "type": "integer"
+                },
+                "seccompProfile": {
+                    "type": "object",
+                    "properties": {
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "priorityClassName": {
+            "type": "string"
+        },
+        "rbac": {
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "scheme": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "successThreshold": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            }
+        },
+        "region": {
+            "type": "null"
+        },
+        "replicaCount": {
+            "type": "integer"
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "revisionHistoryLimit": {
+            "type": "integer"
+        },
+        "runtimeClassName": {
+            "type": "string"
+        },
+        "securityContext": {
+            "type": "object",
+            "properties": {
+                "allowPrivilegeEscalation": {
+                    "type": "boolean"
+                },
+                "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "seccompProfile": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "automountServiceAccountToken": {
+                    "type": "boolean"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "imagePullSecrets": {
+                    "type": "null"
+                },
+                "name": {
+                    "type": "null"
+                }
+            }
+        },
+        "serviceAnnotations": {
+            "type": "object"
+        },
+        "serviceMaxConcurrentReconciles": {
+            "type": "null"
+        },
+        "serviceMonitor": {
+            "type": "object",
+            "properties": {
+                "additionalLabels": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "interval": {
+                    "type": "string"
+                },
+                "metricRelabelings": {
+                    "type": "null"
+                },
+                "namespace": {
+                    "type": "null"
+                },
+                "relabelings": {
+                    "type": "null"
+                },
+                "scrapeTimeout": {
+                    "type": "null"
+                }
+            }
+        },
+        "serviceMutatorWebhookConfig": {
+            "type": "object",
+            "properties": {
+                "failurePolicy": {
+                    "type": "string"
+                },
+                "objectSelector": {
+                    "type": "object",
+                    "properties": {
+                        "matchExpressions": {
+                            "type": "array"
+                        },
+                        "matchLabels": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "operations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "serviceTargetENISGTags": {
+            "type": "null"
+        },
+        "syncPeriod": {
+            "type": "null"
+        },
+        "targetgroupbindingMaxConcurrentReconciles": {
+            "type": "null"
+        },
+        "targetgroupbindingMaxExponentialBackoffDelay": {
+            "type": "null"
+        },
+        "terminationGracePeriodSeconds": {
+            "type": "integer"
+        },
+        "tolerateNonExistentBackendAction": {
+            "type": "null"
+        },
+        "tolerateNonExistentBackendService": {
+            "type": "null"
+        },
+        "tolerations": {
+            "type": "array"
+        },
+        "topologySpreadConstraints": {
+            "type": "array"
+        },
+        "updateStrategy": {
+            "type": "object"
+        },
+        "verticalPodAutoscaler": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "vpcId": {
+            "type": "null"
+        },
+        "vpcTags": {
+            "type": "object"
+        },
+        "watchNamespace": {
+            "type": "null"
+        },
+        "webhookBindPort": {
+            "type": "null"
+        },
+        "webhookConfig": {
+            "type": "object",
+            "properties": {
+                "disableIngressValidation": {
+                    "type": "null"
+                }
+            }
+        },
+        "webhookNamespaceSelectors": {
+            "type": "null"
+        },
+        "webhookTLS": {
+            "type": "object",
+            "properties": {
+                "caCert": {
+                    "type": "null"
+                },
+                "cert": {
+                    "type": "null"
+                },
+                "key": {
+                    "type": "null"
+                }
+            }
         }
-      }
-    },
-    "serviceAnnotations": {
-      "type": "object"
-    },
-    "serviceMaxConcurrentReconciles": {
-      "type": [
-        "null",
-        "integer"
-      ]
-    },
-    "serviceMonitor": {
-      "type": "object",
-      "properties": {
-        "additionalLabels": {
-          "type": "object"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "interval": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": [
-            "null",
-            "string"
-          ]
-        }
-      }
-    },
-    "syncPeriod": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "targetgroupbindingMaxConcurrentReconciles": {
-      "type": [
-        "null",
-        "integer"
-      ]
-    },
-    "targetgroupbindingMaxExponentialBackoffDelay": {
-      "type": [
-        "null",
-        "integer"
-      ]
-    },
-    "terminationGracePeriodSeconds": {
-      "type": "integer"
-    },
-    "tolerateNonExistentBackendAction": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "tolerateNonExistentBackendService": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "tolerations": {
-      "type": "array"
-    },
-    "topologySpreadConstraints": {
-      "type": "object"
-    },
-    "updateStrategy": {
-      "type": "object"
-    },
-    "verticalPodAutoscaler": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      }
-    },
-    "vpcId": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "watchNamespace": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "webhookBindPort": {
-      "type": [
-        "null",
-        "integer",
-        "string"
-      ]
-    },
-    "webhookNamespaceSelectors": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    "webhookTLS": {
-      "type": "object",
-      "properties": {
-        "caCert": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "cert": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "key": {
-          "type": [
-            "null",
-            "string"
-          ]
-        }
-      }
     }
-  }
 }

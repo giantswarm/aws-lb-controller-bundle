@@ -6,7 +6,7 @@ directories:
       - path: aws-load-balancer-controller
         git:
           url: https://github.com/giantswarm/aws-load-balancer-controller-upstream
-          ref: "release-2.8"
+          ref: "release-3.0"
         includePaths:
           - helm/aws-load-balancer-controller/**/*
   - path: helm/aws-load-balancer-controller

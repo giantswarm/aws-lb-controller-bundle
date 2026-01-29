@@ -9,7 +9,7 @@ revisionHistoryLimit: 10
 image:
   registry: gsoci.azurecr.io
   name: giantswarm/aws-load-balancer-controller
-  tag: v2.8.3
+  tag: v3.0.0
   pullPolicy: IfNotPresent
 
 runtimeClassName: ""
@@ -103,7 +103,7 @@ configureDefaultAffinity: true
 # nodes, and other user-defined topology domains.
 #
 # more details here: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
-topologySpreadConstraints: {}
+topologySpreadConstraints: []
 
 updateStrategy: {}
   # type: RollingUpdate
@@ -126,6 +126,22 @@ additionalLabels: {}
 
 # Enable cert-manager
 enableCertManager: false
+
+# Overrideable variables when enableCertManager is set to true
+certManager:
+  # Webhook serving certificate configuration
+  duration: "8760h0m0s"  # 1 year
+  renewBefore: "720h0m0s"  # 30 days
+  revisionHistoryLimit:
+
+  # Root CA certificate configuration
+  rootCert:
+    duration: "43800h0m0s"  # 5 years
+
+  # Optional: custom issuer reference
+  # issuerRef:
+  #   name: my-issuer
+  #   kind: ClusterIssuer
 
 # The name of the Kubernetes cluster. A non-empty value is required
 # For GS clusters the clusterName is set automatically.
@@ -174,6 +190,10 @@ region:
 # The VPC ID for the Kubernetes cluster. Set this manually when your pods are unable to use the metadata service to determine this automatically
 vpcId:
 
+# This is alternative to vpcId. Set this when your pods are unable to use the metadata service to determine VPC automatically.
+vpcTags: {}
+# Name: tagValue
+
 # Custom AWS API Endpoints (serviceID1=URL1,serviceID2=URL2)
 awsApiEndpoints:
 
@@ -192,6 +212,11 @@ awsMaxRetries:
 # The value "instance" should be used for overlay-based CNIs, such as Calico in VXLAN or IPIP mode or
 # Cilium with masquerading enabled.
 defaultTargetType: instance
+
+# Default load balancer scheme when not specifying "alb.ingress.kubernetes.io/scheme" or
+# "service.beta.kubernetes.io/aws-load-balancer-scheme" annotations.
+# Possible values are "internal" and "internet-facing" (default "internal")
+defaultLoadBalancerScheme:
 
 # If enabled, targetHealth readiness gate will get injected to the pod spec for the matching endpoint pods (default true)
 enablePodReadinessGateInject:
@@ -214,6 +239,10 @@ logLevel:
 # The address the metric endpoint binds to. (default ":8080")
 metricsBindAddr: ""
 
+webhookConfig:
+  # disableIngressValidation disables the validation of resources of kind Ingress, false by default
+  disableIngressValidation:
+
 # The TCP port the Webhook server binds to. (default 9443)
 webhookBindPort:
 
@@ -230,9 +259,6 @@ webhookNamespaceSelectors:
 #   values:
 #   - enabled
 
-# keepTLSSecret specifies whether to reuse existing TLS secret for chart upgrade
-keepTLSSecret: true
-
 # Maximum number of concurrently running reconcile loops for service (default 3)
 serviceMaxConcurrentReconciles:
 
@@ -241,6 +267,15 @@ targetgroupbindingMaxConcurrentReconciles:
 
 # Maximum duration of exponential backoff for targetGroupBinding reconcile failures
 targetgroupbindingMaxExponentialBackoffDelay:
+
+# Maximum number of concurrently running reconcile loops for GlobalAccelerator objects
+globalAcceleratorMaxConcurrentReconciles:
+
+# Maximum duration of exponential backoff for GlobalAccelerator reconcile failures
+globalAcceleratorMaxExponentialBackoffDelay:
+
+# Interval at which the controller monitors the state of load balancer after creation for stabilization
+lbStabilizationMonitorInterval:
 
 # Period at which the controller forces the repopulation of its local object stores. (default 10h0m0s)
 syncPeriod:
@@ -296,9 +331,8 @@ env:
 
 # Use envFrom to set environment variables from a Secret or ConfigMap
 envFrom:
-  # valueFrom:
-  #   - secretKeyRef:
-  #       name: aws-load-balancer-controller
+  # - secretRef:
+  #     name: my-secret
 
 # Specifies if aws-load-balancer-controller should be started in hostNetwork mode.
 # This is required if using a custom CNI where the managed control plane nodes are unable to initiate
@@ -351,11 +385,17 @@ enableEndpointSlices:
 # enableBackendSecurityGroup enables shared security group for backend traffic (default true)
 enableBackendSecurityGroup:
 
+# enableManageBackendSecurityGroupRules enables controller manages security group rules (default false)
+enableManageBackendSecurityGroupRules:
+
 # backendSecurityGroup specifies backend security group id (default controller auto create backend security group)
 backendSecurityGroup:
 
 # disableRestrictedSecurityGroupRules specifies whether to disable creating port-range restricted security group rules for traffic
 disableRestrictedSecurityGroupRules:
+
+# maxTargetsPerTargetGroup specifies the maximum number of targets that the controller will attempt to add to a given ELB instance
+maxTargetsPerTargetGroup:
 
 # controllerConfig specifies controller configuration
 controllerConfig:
@@ -370,6 +410,11 @@ controllerConfig:
   # SubnetsClusterTagCheck: true
   # NLBHealthCheckAdvancedConfig: true
   # ALBSingleSubnet: false
+  # LBCapacityReservation: true
+  # GlobalAcceleratorController: false
+  # EnhancedDefaultBehavior: false
+  # EnableDefaultTagsLowPriority: false
+  # ALBTargetControlAgent: false
 
 certDiscovery:
   allowedCertificateAuthorityARNs: ""  # empty means all CAs are in scope
@@ -433,6 +478,11 @@ serviceMutatorWebhookConfig:
   operations:
   - CREATE
     # - UPDATE
+
+# podMutatorWebhookConfig contains configurations specific to the service mutator webhook
+podMutatorWebhookConfig:
+  # whether or not to fail the pod creation if the webhook fails
+  failurePolicy: Ignore
 
 # serviceTargetENISGTags specifies AWS tags, in addition to the cluster tags, for finding the target ENI SG to which to add inbound rules from NLBs.
 serviceTargetENISGTags:
