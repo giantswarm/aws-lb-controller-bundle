@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix JSON Schema `values.schema.json` fields that were incorrectly defined as `"type": "null"` to allow actual configuration values (strings, integers, booleans, arrays, objects) in addition to null.
+
 ## [5.0.0] - 2026-01-29
 
 ### Changed
