@@ -53,7 +53,7 @@ helm.sh/chart: {{ include "aws-load-balancer-controller.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "io.giantswarm.application.team" | quote }}
 {{- if .Values.additionalLabels }}
 {{ toYaml .Values.additionalLabels }}
 {{- end -}}
