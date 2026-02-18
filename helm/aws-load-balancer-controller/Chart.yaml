@@ -6,6 +6,7 @@ appVersion: v3.0.0
 home: https://github.com/aws/eks-charts
 icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
 annotations:
+  application.giantswarm.io/team: phoenix
   io.giantswarm.application.audience: all
   io.giantswarm.application.managed: "true"
   io.giantswarm.application.team: phoenix

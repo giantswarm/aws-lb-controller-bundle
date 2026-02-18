@@ -12,7 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate chart metadata annotations to `io.giantswarm.application.*` format for both the app and bundle charts.
 - Add `io.giantswarm.application.audience: all` to publish the app to the customer Backstage catalog.
 - Add `io.giantswarm.application.restrictions.compatible-providers: aws` and `cluster-singleton: true`.
-- Update `_helpers.tpl` in both charts to read team label from the new annotation key.
 
 ## [5.0.1] - 2026-01-29
 
