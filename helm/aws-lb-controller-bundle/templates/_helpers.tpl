@@ -100,6 +100,7 @@ Get trust policy statements for all provided OIDC domains
 
 {{/*
 Set Giant Swarm specific values.
+Mutates .Values in place before workloadValues reads them.
 */}}
 {{- define "giantswarm.setValues" -}}
 {{- $cmvalues := (include "aws-load-balancer-controller-bundle.crossplaneConfigData" .) | fromYaml -}}
@@ -115,4 +116,77 @@ Set Giant Swarm specific values.
 {{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
 {{- $_ := set .Values.defaultTags (printf "kubernetes.io/cluster/%s" $clusterName) "owned" }}
 {{- $_ := set .Values.defaultTags "kubernetes.io/service-name" "aws-alb-controller" }}
+{{- end -}}
+
+{{/*
+Combine image registry + name into a single repository string for the upstream chart.
+GS uses image.registry + image.name; upstream uses image.repository.
+*/}}
+{{- define "giantswarm.combineImage" -}}
+{{- printf "%s/%s" .registry .name -}}
+{{- end -}}
+
+{{/*
+Build workload chart values from flat bundle values.
+Strips bundle-only keys and restructures into:
+  upstream:
+    <all upstream controller values>
+  verticalPodAutoscaler: ...
+  global: ...
+*/}}
+{{- define "giantswarm.workloadValues" -}}
+{{- $workload := dict -}}
+
+{{/* Keys that are bundle-only and must NOT be forwarded to the workload chart */}}
+{{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" -}}
+
+{{/* Keys that are GS extras — forwarded at the top level of the workload chart */}}
+{{- $extrasKeys := list "verticalPodAutoscaler" "global" -}}
+
+{{/* Keys that need special transformation */}}
+{{- $specialKeys := list "image" "clusterName" -}}
+
+{{/* 1. Forward extras at top level */}}
+{{- range $key := $extrasKeys -}}
+{{-   if hasKey $.Values $key -}}
+{{-     $_ := set $workload $key (index $.Values $key) -}}
+{{-   end -}}
+{{- end -}}
+
+{{/* 2. Build upstream values dict from all remaining non-reserved keys */}}
+{{- $upstream := dict -}}
+
+{{/* CRITICAL: nameOverride preserves selector labels during upgrade */}}
+{{- $_ := set $upstream "nameOverride" "aws-load-balancer-controller" -}}
+
+{{/* Combine image.registry + image.name into image.repository for upstream */}}
+{{- if .Values.image -}}
+{{-   $img := dict -}}
+{{-   if and .Values.image.registry .Values.image.name -}}
+{{-     $_ := set $img "repository" (include "giantswarm.combineImage" .Values.image) -}}
+{{-   end -}}
+{{-   if .Values.image.tag -}}
+{{-     $_ := set $img "tag" .Values.image.tag -}}
+{{-   end -}}
+{{-   if .Values.image.pullPolicy -}}
+{{-     $_ := set $img "pullPolicy" .Values.image.pullPolicy -}}
+{{-   end -}}
+{{-   $_ := set $upstream "image" $img -}}
+{{- end -}}
+
+{{/* Copy clusterName into upstream block */}}
+{{- if .Values.clusterName -}}
+{{-   $_ := set $upstream "clusterName" .Values.clusterName -}}
+{{- end -}}
+
+{{/* Copy all other non-reserved keys into upstream */}}
+{{- $reservedKeys := concat $bundleOnlyKeys $extrasKeys $specialKeys (list "nameOverride" "fullnameOverride") -}}
+{{- range $key, $val := .Values -}}
+{{-   if not (has $key $reservedKeys) -}}
+{{-     $_ := set $upstream $key $val -}}
+{{-   end -}}
+{{- end -}}
+
+{{- $_ := set $workload "upstream" $upstream -}}
+{{- $workload | toYaml -}}
 {{- end -}}

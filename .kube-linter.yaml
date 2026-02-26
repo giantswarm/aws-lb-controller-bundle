@@ -3,3 +3,6 @@ checks:
   - "pdb-unhealthy-pod-eviction-policy"
   - "liveness-port"
   - "readiness-port"
+paths:
+  exclude:
+  - "helm/aws-load-balancer-controller/charts/"
