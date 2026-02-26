@@ -5,4 +5,4 @@ checks:
   - "readiness-port"
 paths:
   exclude:
-  - "helm/aws-load-balancer-controller/charts/"
+  - "**/charts/**"
