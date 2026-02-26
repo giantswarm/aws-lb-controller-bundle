@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.2] - 2026-02-26
+
 ### Changed
 
 - Update IAM Policy in bundle to match the requirements for v3.0.0.
@@ -235,7 +237,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.2...HEAD
+[5.0.2]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v3.0.0...v4.0.0
