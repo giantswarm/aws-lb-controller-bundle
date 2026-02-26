@@ -1,0 +1,3 @@
+---
+chart-repos:
+- eks=https://aws.github.io/eks-charts
