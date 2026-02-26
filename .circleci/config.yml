@@ -48,7 +48,6 @@ workflows:
 
       - architect/push-to-app-collection:
           name: push-aws-lb-controller-bundle-to-capa-app-collection
-          ct_config: ".circleci/ct-config.yaml"
           context: architect
           app_catalog: control-plane-catalog
           app_name: aws-lb-controller-bundle
