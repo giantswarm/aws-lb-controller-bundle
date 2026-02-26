@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update IAM Policy in bundle to match the requirements for v3.0.0.
+
 ## [5.0.1] - 2026-01-29
 
 ### Fixed
