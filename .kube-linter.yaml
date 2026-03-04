@@ -5,3 +5,5 @@ checks:
   - "readiness-port"
   - "unset-cpu-requirements"
   - "unset-memory-requirements"
+  ignorePaths:
+  - "**/charts/**"

@@ -5,6 +5,9 @@
 nameOverride: ""
 fullnameOverride: ""
 
+networkPolicy:
+  enabled: true
+
 verticalPodAutoscaler:
   enabled: true
 

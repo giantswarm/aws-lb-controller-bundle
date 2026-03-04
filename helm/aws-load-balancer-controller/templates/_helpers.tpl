@@ -47,6 +47,7 @@ helm.sh/chart: {{ include "extras.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+giantswarm.io/service-type: "managed"
 {{- end -}}
 
 {{/*
