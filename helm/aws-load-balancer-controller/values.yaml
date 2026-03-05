@@ -43,9 +43,9 @@ upstream:
 
   podSecurityContext:
     fsGroup: 65534
+    runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
-      runAsNonRoot: true
 
   securityContext:
     readOnlyRootFilesystem: true
