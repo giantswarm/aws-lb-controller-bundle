@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `io.giantswarm.application.audience: all` to publish the app to the customer Backstage catalog.
 - Add `io.giantswarm.application.restrictions.compatible-providers: aws` and `cluster-singleton: true`.
 
+## [5.0.3] - 2026-02-27
+
+### Changed
+
+- Update ABS config to replace `.appVersion` in Chart.yaml with version detected by ABS.
+
+### Fixed
+
+- Use `.Chart.AppVersion` instead of `.Chart.Version` for OCIRepository tag.
+
+## [5.0.2] - 2026-02-26
+
+### Changed
+
+- Update IAM Policy in bundle to match the requirements for v3.0.0.
+
 ## [5.0.1] - 2026-01-29
 
 ### Fixed
@@ -237,7 +253,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...HEAD
+[5.0.3]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.2...v5.0.3
+[5.0.2]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v3.0.0...v4.0.0
