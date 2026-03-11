@@ -43,18 +43,3 @@ workflows:
           explicit_allow_chart_name_mismatch: true
           <<: *job_filters
 
-      - architect/push-to-app-collection:
-          name: push-aws-lb-controller-bundle-to-capa-app-collection
-          context: architect
-          app_catalog: control-plane-catalog
-          app_name: aws-lb-controller-bundle
-          app_namespace: org-giantswarm
-          app_collection_repo: capa-app-collection
-          requires:
-            - push-aws-load-balancer-controller-to-giantswarm-catalog
-            - push-aws-lb-controller-bundle-to-control-plane-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
