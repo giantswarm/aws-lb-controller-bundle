@@ -3,8 +3,8 @@ name: aws-load-balancer-controller
 description: AWS Load Balancer Controller Helm chart for Kubernetes (Giant Swarm)
 version: 3.0.0
 appVersion: v3.0.0
-home: https://github.com/giantswarm/aws-load-balancer-controller-app
-icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
+home: https://github.com/aws/eks-charts
+icon: https://s.giantswarm.io/app-icons/aws/2/light.svg
 annotations:
   application.giantswarm.io/team: phoenix
 sources:
