@@ -9,4 +9,4 @@ metadata:
     {{- include "aws-load-balancer-controller-bundle.labels" $ | nindent 4 }}
 data:
   values: |
-  {{- (tpl (.Values | toYaml | toString) $) | nindent 4 }}
+  {{- (tpl (include "giantswarm.workloadValues" . | toString) $) | nindent 4 }}
