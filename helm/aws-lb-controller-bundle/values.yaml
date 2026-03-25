@@ -17,7 +17,6 @@ ociRepositoryUrl: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-con
 image:
   registry: gsoci.azurecr.io
   name: giantswarm/aws-load-balancer-controller
-  tag: v3.0.0
   pullPolicy: IfNotPresent
 
 # The name of the Kubernetes cluster. A non-empty value is required.

@@ -26,7 +26,6 @@ upstream:
 
   image:
     repository: gsoci.azurecr.io/giantswarm/aws-load-balancer-controller
-    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   replicaCount: 2
