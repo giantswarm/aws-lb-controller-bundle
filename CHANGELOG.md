@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `io.giantswarm.application.audience: all` to publish the app to the customer Backstage catalog.
 - Add `io.giantswarm.application.restrictions.compatible-providers: aws` and `cluster-singleton: true`.
 
+## [5.1.0] - 2026-03-25
+
+### Changed
+
+- Update chart icon URL to use Giant Swarm hosted SVG icon.
+
 ## [5.0.3] - 2026-02-27
 
 ### Changed
@@ -253,7 +259,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...v5.1.0
 [5.0.3]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.2...v5.0.3
 [5.0.2]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.0...v5.0.1

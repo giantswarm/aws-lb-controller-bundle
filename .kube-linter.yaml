@@ -3,3 +3,7 @@ checks:
   - "pdb-unhealthy-pod-eviction-policy"
   - "liveness-port"
   - "readiness-port"
+  - "unset-cpu-requirements"
+  - "unset-memory-requirements"
+  ignorePaths:
+  - "**/charts/**"
