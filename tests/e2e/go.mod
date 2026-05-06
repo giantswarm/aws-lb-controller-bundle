@@ -15,7 +15,7 @@ require (
 	github.com/giantswarm/clustertest v1.41.0
 	github.com/giantswarm/clustertest/v3 v3.1.0
 	github.com/onsi/ginkgo/v2 v2.28.2
-	github.com/onsi/gomega v1.39.0
+	github.com/onsi/gomega v1.40.0
 	k8s.io/api v0.35.0
 	k8s.io/apimachinery v0.35.0
 	sigs.k8s.io/controller-runtime v0.22.4
