@@ -7,6 +7,9 @@ fullBundleNameOverride: ""
 
 ociRepositoryUrl: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-controller
 
+# Optional: name of a Secret to inject as additional values into the HelmRelease
+valuesFromSecret: ""
+
 # =============================================================================
 # UPSTREAM — Controller values (forwarded under "upstream:" to the workload chart)
 # =============================================================================

@@ -43,3 +43,8 @@ spec:
       name: {{ $clusterName }}-aws-load-balancer-controller-config
       valuesKey: values
       optional: false
+    {{- if .Values.valuesFromSecret }}
+    - kind: Secret
+      name: {{ .Values.valuesFromSecret }}
+      optional: false
+    {{- end }}
