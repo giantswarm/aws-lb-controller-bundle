@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `valuesFromSecret` value to optionally inject a Secret as an additional `valuesFrom` source in the HelmRelease.
+
 ## [5.1.0] - 2026-03-25
 
 ### Changed

@@ -138,7 +138,7 @@ Strips bundle-only keys and restructures into:
 {{- $workload := dict -}}
 
 {{/* Keys that are bundle-only and must NOT be forwarded to the workload chart */}}
-{{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" -}}
+{{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" "valuesFromSecret" -}}
 
 {{/* Keys that are GS extras — forwarded at the top level of the workload chart */}}
 {{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" -}}
