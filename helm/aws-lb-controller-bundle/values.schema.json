@@ -12,6 +12,9 @@
         "ociRepositoryUrl": {
             "type": "string"
         },
+        "valuesFromSecret": {
+            "type": "string"
+        },
         "image": {
             "type": "object",
             "additionalProperties": true,
