@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.2.0] - 2026-05-27
+
 ### Added
 
 - Add `valuesFromSecret` value to optionally inject a Secret as an additional `valuesFrom` source in the HelmRelease.
@@ -257,7 +259,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...v5.1.0
 [5.0.3]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.2...v5.0.3
 [5.0.2]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.1...v5.0.2
