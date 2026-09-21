@@ -1,4 +1,3 @@
-{{- if .Values.global.podSecurityStandards.enforced }}
 {{ if .Capabilities.APIVersions.Has "kyverno.io/v2/PolicyException" -}}
 apiVersion: kyverno.io/v2
 {{- else }}
@@ -31,4 +30,3 @@ spec:
             - {{ .Release.Namespace }}
           names:
             - {{ include "extras.fullname" . }}*
-{{- end }}

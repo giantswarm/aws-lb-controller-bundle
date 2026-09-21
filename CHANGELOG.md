@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bump OCIRepository version to v1.
+- Always create the Kyverno `PolicyException` for the controller. The controller now installs on clusters that enforce the restricted Pod Security Standards, where admission denied its Deployment before.
+
+### Removed
+
+- Removed the `global.podSecurityStandards.enforced` Helm value from both charts. It no longer has any effect.
 
 ## [5.2.0] - 2026-05-27
 

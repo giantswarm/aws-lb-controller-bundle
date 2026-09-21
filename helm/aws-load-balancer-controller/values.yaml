@@ -11,10 +11,6 @@ networkPolicy:
 verticalPodAutoscaler:
   enabled: true
 
-global:
-  podSecurityStandards:
-    enforced: false
-
 # =============================================================================
 # UPSTREAM — Values passed to the upstream sub-chart (alias: upstream)
 # =============================================================================
