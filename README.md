@@ -11,7 +11,7 @@ Here we define the `aws-lb-controller-bundle` and `aws-load-balancer-controller`
 |------|---------------|--------------|
 | **Bundle-only** | Management cluster only | Never forwarded to the workload chart. Examples: `ociRepositoryUrl`, `clusterName` (used for IRSA computation) |
 | **Upstream** | Workload cluster, under `upstream:` key | Routed to the unmodified upstream sub-chart. Controls the actual controller: image, replicas, resources, service account, etc. |
-| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler`, `global.podSecurityStandards` |
+| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler` |
 
 ## Architecture
 

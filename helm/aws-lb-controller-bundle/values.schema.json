@@ -44,21 +44,6 @@
                     "type": "boolean"
                 }
             }
-        },
-        "global": {
-            "type": "object",
-            "additionalProperties": true,
-            "properties": {
-                "podSecurityStandards": {
-                    "type": "object",
-                    "additionalProperties": true,
-                    "properties": {
-                        "enforced": {
-                            "type": "boolean"
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -61,7 +61,3 @@ configureDefaultAffinity: true
 
 verticalPodAutoscaler:
   enabled: true
-
-global:
-  podSecurityStandards:
-    enforced: false
