@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bump OCIRepository version to v1.
+- Upgrade e2e tests to `apptest-framework` v5 and `clustertest` v5.
 - Always create the Kyverno `PolicyException` for the controller. The controller now installs on clusters that enforce the restricted Pod Security Standards, where admission denied its Deployment before.
 
 ### Removed
