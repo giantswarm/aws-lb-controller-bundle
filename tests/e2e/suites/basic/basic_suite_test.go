@@ -6,8 +6,8 @@ import (
 	"time"
 
 	helmv2 "github.com/fluxcd/helm-controller/api/v2"
-	"github.com/giantswarm/apptest-framework/v2/pkg/state"
-	"github.com/giantswarm/clustertest/pkg/logger"
+	"github.com/giantswarm/apptest-framework/v5/pkg/state"
+	"github.com/giantswarm/clustertest/v5/pkg/logger"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	corev1 "k8s.io/api/core/v1"
@@ -15,7 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/giantswarm/apptest-framework/v2/pkg/suite"
+	"github.com/giantswarm/apptest-framework/v5/pkg/suite"
 )
 
 const (
