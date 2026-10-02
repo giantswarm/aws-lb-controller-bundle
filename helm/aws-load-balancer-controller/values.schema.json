@@ -27,6 +27,18 @@
                 }
             }
         },
+        "podLogs": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "tenant": {
+                    "type": "string"
+                }
+            }
+        },
         "upstream": {
             "type": "object",
             "additionalProperties": true
