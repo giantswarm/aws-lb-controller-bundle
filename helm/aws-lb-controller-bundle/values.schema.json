@@ -36,6 +36,18 @@
         "clusterName": {
             "type": "string"
         },
+        "podLogs": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "tenant": {
+                    "type": "string"
+                }
+            }
+        },
         "verticalPodAutoscaler": {
             "type": "object",
             "additionalProperties": true,

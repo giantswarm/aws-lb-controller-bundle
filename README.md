@@ -11,7 +11,7 @@ Here we define the `aws-lb-controller-bundle` and `aws-load-balancer-controller`
 |------|---------------|--------------|
 | **Bundle-only** | Management cluster only | Never forwarded to the workload chart. Examples: `ociRepositoryUrl`, `clusterName` (used for IRSA computation) |
 | **Upstream** | Workload cluster, under `upstream:` key | Routed to the unmodified upstream sub-chart. Controls the actual controller: image, replicas, resources, service account, etc. |
-| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler` |
+| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler`, `podLogs` |
 
 ## Architecture
 
@@ -32,7 +32,7 @@ Management Cluster (bundle chart)          Workload Cluster (workload chart)
 │  └─────────────┘                 │       │  │  • NetworkPolicy          │  │
 │  ┌─────────────┐                 │       │  │  • VPA                    │  │
 │  │ HelmRelease │ Flux            │       │  │  • PSS Exceptions         │  │
-│  │ + OCIRepo   │─────────────────│───────│─▶│                           │  │
+│  │ + OCIRepo   │─────────────────│───────│─▶│  • PodLogs                │  │
 │  └─────────────┘                 │       │  └────────────────────────────┘  │
 └──────────────────────────────────┘       └──────────────────────────────────┘
 ```
@@ -52,10 +52,10 @@ Management Cluster (bundle chart)          Workload Cluster (workload chart)
    - **IRSA**: Computes the IAM role ARN from the `crossplane-config` ConfigMap and injects it into `serviceAccount.annotations`.
    - **Cluster tags**: Sets `defaultTags` with cluster ownership tags.
    - **Upstream routing**: All upstream values are placed under the `upstream:` key.
-   - **Extras routing**: `verticalPodAutoscaler` and `global` are passed at top level (not under `upstream:`).
+   - **Extras routing**: `verticalPodAutoscaler`, `networkPolicy`, `podLogs` and `global` are passed at top level (not under `upstream:`).
    - **Bundle-only exclusion**: `ociRepositoryUrl`, `bundleNameOverride`, and `fullBundleNameOverride` are never forwarded.
 3. The transformed values are stored in a ConfigMap on the management cluster.
-4. A Flux HelmRelease references this ConfigMap via `valuesFrom` and deploys the workload chart to the workload cluster.
+4. A Flux HelmRelease references this ConfigMap via `valuesFrom` and deploys the workload chart to the workload cluster. When `podLogs.enabled` is true, it depends on the cluster's `alloy-podlogs-crds` HelmRelease (deployed by `observability-bundle`).
 
 ### Why this pattern
 
@@ -106,7 +106,7 @@ This version migrates from a forked upstream Helm chart to using the **unmodifie
 - The workload chart (`helm/aws-load-balancer-controller/`) no longer contains forked upstream templates. Instead, the upstream chart is declared as a dependency with alias `upstream`.
 - All upstream values must now be placed under the `upstream:` key in the workload chart's values.
 - The bundle chart's `_helpers.tpl` handles the value transformation automatically, so **no changes are needed for bundle chart users**.
-- GS extras (NetworkPolicy, VPA, PSS exceptions) remain as separate templates in the workload chart.
+- GS extras (NetworkPolicy, VPA, PSS exceptions, PodLogs) remain as separate templates in the workload chart.
 
 ## Testing
 

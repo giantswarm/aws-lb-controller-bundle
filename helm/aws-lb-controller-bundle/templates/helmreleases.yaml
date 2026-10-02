@@ -35,6 +35,11 @@ spec:
     kind: OCIRepository
     name: {{ $clusterName }}-aws-load-balancer-controller
     namespace: {{ .Release.Namespace }}
+  {{- if .Values.podLogs.enabled }}
+  dependsOn:
+    - name: {{ $clusterName }}-alloy-podlogs-crds
+      namespace: {{ .Release.Namespace }}
+  {{- end }}
   releaseName: aws-load-balancer-controller
   targetNamespace: aws-load-balancer-controller
   storageNamespace: aws-load-balancer-controller
