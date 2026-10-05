@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update the pull request template to the current chart structure.
 
+### Added
+
+- Add a `PodLogs` resource to ship the controller logs to Loki, enabled by default through the `podLogs.enabled` value. When enabled, the bundle's `HelmRelease` depends on the cluster's `alloy-podlogs-crds` `HelmRelease`, available from cluster release v35. On older releases, set `podLogs.enabled: false`, or the controller is never installed or upgraded.
+
 ## [5.2.1] - 2026-09-30
 
 ### Changed
