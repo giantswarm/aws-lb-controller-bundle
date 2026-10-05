@@ -141,7 +141,7 @@ Strips bundle-only keys and restructures into:
 {{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" "valuesFromSecret" -}}
 
 {{/* Keys that are GS extras — forwarded at the top level of the workload chart */}}
-{{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" -}}
+{{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" "podLogs" -}}
 
 {{/* Keys that need special transformation */}}
 {{- $specialKeys := list "image" "clusterName" -}}

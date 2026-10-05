@@ -11,6 +11,11 @@ networkPolicy:
 verticalPodAutoscaler:
   enabled: true
 
+# Ships the controller logs to Loki through a PodLogs resource.
+podLogs:
+  enabled: true
+  tenant: giantswarm
+
 # =============================================================================
 # UPSTREAM — Values passed to the upstream sub-chart (alias: upstream)
 # =============================================================================
