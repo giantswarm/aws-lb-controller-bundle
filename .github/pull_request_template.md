@@ -1,6 +1,12 @@
 <!--
-The contents of this repository are generated from our fork here https://github.com/giantswarm/aws-load-balancer-controller-upstream
-If you need to do changes to this chart, please apply them in our fork and regenerate the contents of this repository using `vendir`.
+The upstream chart is consumed unmodified as a Helm dependency (alias `upstream`) of `helm/aws-load-balancer-controller`.
+Bump it in that chart's `Chart.yaml`; put Giant Swarm specific resources in its `templates/` (extras) and wire new values through the bundle chart.
+See the README for how values flow from the bundle chart to the workload chart.
 -->
 
 This PR..
+
+### Checklist
+
+- [ ] Updated `CHANGELOG.md`.
+- [ ] Updated `values.schema.json` of the affected chart(s), if values changed.
