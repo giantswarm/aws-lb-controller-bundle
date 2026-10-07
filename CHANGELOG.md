@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set `crds: CreateReplace` on install and upgrade of the bundle's `HelmRelease`, so Flux creates and updates the controller CRDs.
+
 ## [5.2.1] - 2026-09-30
 
 ### Changed
