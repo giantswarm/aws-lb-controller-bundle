@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.0] - 2026-10-07
+
+**BREAKING CHANGE**: this release introduces a new dependency on `alloy-podlogs-crds` `HelmRelease`. This is only available on Giant Swarm release v35.0.0 onward. Either use the latest v5 release of the `aws-lb-controller-bundle` App on v34 clusters, or set `podLogs.enabled: false`.
+
 ### Changed
 
 - Update the pull request template to the current chart structure.
@@ -280,7 +284,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.1...v6.0.0
 [5.2.1]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...v5.1.0
