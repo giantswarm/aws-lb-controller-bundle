@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.2.2] - 2026-10-07
+
 ### Changed
 
 - Set `crds: CreateReplace` on install and upgrade of the bundle's `HelmRelease`, so Flux creates and updates the controller CRDs.
@@ -274,7 +276,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.2...HEAD
+[5.2.2]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/aws-lb-controller-bundle/compare/v5.0.3...v5.1.0
