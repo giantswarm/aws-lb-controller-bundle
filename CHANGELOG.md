@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update the pull request template to the current chart structure.
+- Set `crds: CreateReplace` on install and upgrade of the bundle's `HelmRelease`, so Flux creates and updates the controller CRDs.
 
 ### Added
 
