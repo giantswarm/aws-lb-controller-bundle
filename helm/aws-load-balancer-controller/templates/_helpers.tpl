@@ -33,7 +33,7 @@ Name for selector labels — matches upstream sub-chart's app.kubernetes.io/name
 Chart label
 */}}
 {{- define "extras.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimAll "-._" -}}
 {{- end -}}
 
 {{/*

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
+
 ## [6.0.0] - 2026-10-07
 
 **BREAKING CHANGE**: this release introduces a new dependency on `alloy-podlogs-crds` `HelmRelease`. This is only available on Giant Swarm release v35.0.0 onward. Either use the latest v5 release of the `aws-lb-controller-bundle` App on v34 clusters, or set `podLogs.enabled: false`.
