@@ -9,11 +9,18 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-      - containerName: aws-load-balancer-controller
+      # The controller container is named after the sub-chart alias, "upstream":
+      # the upstream Deployment takes the container name from .Chart.Name, and
+      # upstream.nameOverride restores resource names and labels, not this name.
+      # A policy for "aws-load-balancer-controller" matches no container, and the
+      # VPA then scales the controller with no floor at all.
+      - containerName: upstream
         controlledValues: RequestsAndLimits
         mode: Auto
+        {{- with .Values.verticalPodAutoscaler.minAllowed }}
         minAllowed:
-          cpu: 50m
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
   targetRef:
     apiVersion: apps/v1
     kind: Deployment

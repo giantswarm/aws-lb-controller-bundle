@@ -61,6 +61,11 @@ configureDefaultAffinity: true
 
 verticalPodAutoscaler:
   enabled: true
+  # Floor of the VPA recommendation for the controller container. The limit
+  # follows the request in the ratio of resources above, so 200m gives a 200m
+  # CPU limit with the default resources and 2 CPU with a 1:10 ratio.
+  minAllowed:
+    cpu: 200m
 
 # Ships the controller logs to Loki through a PodLogs resource.
 # When enabled, the HelmRelease also depends on the cluster's alloy-podlogs-crds HelmRelease.

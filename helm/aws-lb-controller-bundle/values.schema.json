@@ -54,6 +54,15 @@
             "properties": {
                 "enabled": {
                     "type": "boolean"
+                },
+                "minAllowed": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         }
