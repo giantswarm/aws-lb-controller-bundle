@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
+- The VPA policy names the controller container again. Since the upstream chart became an aliased dependency the container is `upstream`, so the policy for `aws-load-balancer-controller` matched nothing and the VPA scaled the controller with no CPU floor. On a cluster with 6,600 Services it set a 230m CPU limit, the v3.6.0 cold start timed out on the Service informer sync, and the controller crash-looped.
+
+### Added
+
+- `verticalPodAutoscaler.minAllowed` (default `cpu: 200m`) sets the floor of the VPA recommendation for the controller container, in the workload chart and forwarded from the bundle chart.
 
 ## [6.0.0] - 2026-10-07
 

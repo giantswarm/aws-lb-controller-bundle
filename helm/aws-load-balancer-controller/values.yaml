@@ -10,6 +10,13 @@ networkPolicy:
 
 verticalPodAutoscaler:
   enabled: true
+  # Smallest resources the VPA may give the controller container. The VPA keeps
+  # the limit-to-request ratio of upstream.resources, so this floor also sets the
+  # smallest CPU limit. The leader needs about 1 CPU for its initial informer sync
+  # on a cluster with 6,500 Services; a lower limit throttles the sync past its
+  # timeout and the controller crash-loops.
+  minAllowed:
+    cpu: 200m
 
 # Ships the controller logs to Loki through a PodLogs resource.
 podLogs:
