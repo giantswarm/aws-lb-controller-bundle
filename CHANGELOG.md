@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix the broken CircleCI badge in the README: it pointed to the old repository name `aws-load-balancer-controller-app`.
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
 - The VPA policy names the controller container again. Since the upstream chart became an aliased dependency the container is `upstream`, so the policy for `aws-load-balancer-controller` matched nothing and the VPA scaled the controller with no CPU floor. On a cluster with 6,600 Services it set a 230m CPU limit, the v3.6.0 cold start timed out on the Service informer sync, and the controller crash-looped.
 

@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/aws-load-balancer-controller-app/tree/main.svg?style=svg)](https://circleci.com/gh/giantswarm/aws-load-balancer-controller-app/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/aws-lb-controller-bundle/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/aws-lb-controller-bundle/tree/main)
 
 # AWS Load Balancer Controller chart
 
