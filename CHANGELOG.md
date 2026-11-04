@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- CI: architect orb 10.16.7, which pushes the chart to the git app catalogs with the architect GitHub App instead of the `catalogbot` account (giantswarm/giantswarm#34786).
 - The release workflows authenticate as the `giantswarm-release` GitHub App instead of the shared taylorbot account (giantswarm/giantswarm#2280).
 
 ## [5.2.2] - 2026-10-07
