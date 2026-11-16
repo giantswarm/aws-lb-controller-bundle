@@ -83,8 +83,6 @@ kubectl gs deploy chart --bundle \
 kubectl apply -f mycluster-aws-lb-controller-bundle.yaml
 ```
 
-This creates an `OCIRepository` and a `HelmRelease` named `mycluster-aws-lb-controller-bundle`. The bundle derives the cluster name from that release name. If you use another name, set `clusterName`.
-
 The bundle chart will:
 
 1. Create the necessary IAM role with proper permissions using Crossplane

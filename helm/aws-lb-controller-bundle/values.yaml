@@ -57,10 +57,6 @@ serviceMonitor:
   enabled: true
   interval: 1m
 
-# Hand every new `Service` of type `LoadBalancer` without `spec.loadBalancerClass`
-# to this controller instead of the cloud provider. The controller creates an
-# NLB for it, which is `internal` unless the `Service` has the annotation
-# `service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing`.
 enableServiceMutatorWebhook: true
 
 configureDefaultAffinity: true

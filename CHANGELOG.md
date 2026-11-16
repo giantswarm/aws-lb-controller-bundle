@@ -11,11 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Read `region` and `vpcId` from the `<cluster>-crossplane-config` ConfigMap unless they are set explicitly, so the controller no longer needs the instance metadata service (IMDS) to find them.
 - Add the `kyverno.enabled` value (default `true`) to skip the Kyverno `PolicyException` on clusters without Kyverno, where the controller was never installed.
-- Document installing the bundle with `kubectl gs deploy chart --bundle`, and how `enableServiceMutatorWebhook` takes over new `Service`s of type `LoadBalancer`.
-
-### Fixed
-
-- Point the chart `home` and `sources` URLs to the renamed repository `aws-lb-controller-bundle`.
 
 ## [6.1.0] - 2026-11-03
 
