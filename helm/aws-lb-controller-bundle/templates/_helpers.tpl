@@ -111,6 +111,14 @@ Mutates .Values in place before workloadValues reads them.
 {{- $_ := set .Values "clusterName" $clusterName -}}
 {{- end -}}
 
+{{- if and (not .Values.region) $cmvalues.region -}}
+{{- $_ := set .Values "region" $cmvalues.region -}}
+{{- end -}}
+
+{{- if and (not .Values.vpcId) ($cmvalues.awsCluster).vpcId -}}
+{{- $_ := set .Values "vpcId" $cmvalues.awsCluster.vpcId -}}
+{{- end -}}
+
 {{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
 {{/*    - "kubernetes.io/cluster/$clusterName=owned"*/}}
 {{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
@@ -141,7 +149,7 @@ Strips bundle-only keys and restructures into:
 {{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" "valuesFromSecret" -}}
 
 {{/* Keys that are GS extras — forwarded at the top level of the workload chart */}}
-{{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" "podLogs" -}}
+{{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" "podLogs" "kyverno" -}}
 
 {{/* Keys that need special transformation */}}
 {{- $specialKeys := list "image" "clusterName" -}}

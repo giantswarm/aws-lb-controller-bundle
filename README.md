@@ -11,7 +11,7 @@ Here we define the `aws-lb-controller-bundle` and `aws-load-balancer-controller`
 |------|---------------|--------------|
 | **Bundle-only** | Management cluster only | Never forwarded to the workload chart. Examples: `ociRepositoryUrl`, `clusterName` (used for IRSA computation) |
 | **Upstream** | Workload cluster, under `upstream:` key | Routed to the unmodified upstream sub-chart. Controls the actual controller: image, replicas, resources, service account, etc. |
-| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler`, `podLogs` |
+| **Extras** | Workload cluster, at top level (not under `upstream:`) | Consumed by GS extras templates: `networkPolicy`, `verticalPodAutoscaler`, `podLogs`, `kyverno` |
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Management Cluster (bundle chart)          Workload Cluster (workload chart)
 │          bundle)                 │       │  ┌────────────────────────────┐  │
 │         │                        │       │  │ upstream sub-chart         │  │
 │         ▼                        │       │  │ (aws-load-balancer-        │  │
-│  ┌─────────────┐                 │       │  │  controller v3.0.0)       │  │
+│  ┌─────────────┐                 │       │  │  controller v3.6.0)       │  │
 │  │ IAM Role    │ Crossplane      │       │  │  • Deployment             │  │
 │  │ (IRSA)      │                 │       │  │  • Service                │  │
 │  └─────────────┘                 │       │  │  • RBAC, Webhooks, etc.   │  │
@@ -51,8 +51,9 @@ Management Cluster (bundle chart)          Workload Cluster (workload chart)
    - **Image**: Combines split `registry` + `name` (GS format) into a single `repository` path expected by the upstream chart.
    - **IRSA**: Computes the IAM role ARN from the `crossplane-config` ConfigMap and injects it into `serviceAccount.annotations`.
    - **Cluster tags**: Sets `defaultTags` with cluster ownership tags.
+   - **Region and VPC**: Sets `region` and `vpcId` from the `crossplane-config` ConfigMap unless they are set explicitly, so the controller does not need the instance metadata service (IMDS) to find them.
    - **Upstream routing**: All upstream values are placed under the `upstream:` key.
-   - **Extras routing**: `verticalPodAutoscaler`, `networkPolicy`, `podLogs` and `global` are passed at top level (not under `upstream:`).
+   - **Extras routing**: `verticalPodAutoscaler`, `networkPolicy`, `podLogs`, `kyverno` and `global` are passed at top level (not under `upstream:`).
    - **Bundle-only exclusion**: `ociRepositoryUrl`, `bundleNameOverride`, and `fullBundleNameOverride` are never forwarded.
 3. The transformed values are stored in a ConfigMap on the management cluster.
 4. A Flux HelmRelease references this ConfigMap via `valuesFrom` and deploys the workload chart to the workload cluster. When `podLogs.enabled` is true, it depends on the cluster's `alloy-podlogs-crds` HelmRelease (deployed by `observability-bundle`).
@@ -69,35 +70,42 @@ The controller runs on worker nodes and needs access to AWS ALB/NLB resources vi
 
 ## Installing
 
-Install the bundle chart on the management cluster using an App CR:
+Install the bundle chart on the management cluster, in the organization namespace of the workload cluster, with [`kubectl gs deploy chart`](https://github.com/giantswarm/kubectl-gs) (v5.9.0 or newer). Write the manifests to a file, review them, then apply them:
 
-```yaml
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
-metadata:
-  name: coyote-aws-lb-controller-bundle
-  namespace: org-acme
-spec:
-  catalog: giantswarm
-  config:
-    configMap:
-      name: coyote-cluster-values
-      namespace: org-acme
-  kubeConfig:
-    inCluster: true
-  name: aws-lb-controller-bundle
-  namespace: org-acme
-  version: 4.0.0
+```bash
+kubectl gs deploy chart --bundle \
+  --organization acme \
+  --target-cluster coyote \
+  --chart-name aws-lb-controller-bundle \
+  --version 6.1.0 \
+  --values-file values.yaml \
+  --dry-run > coyote-aws-lb-controller-bundle.yaml
+kubectl apply -f coyote-aws-lb-controller-bundle.yaml
 ```
+
+This creates an `OCIRepository` and a `HelmRelease` named `coyote-aws-lb-controller-bundle`. The bundle derives the cluster name from that release name. If you use another name, set `clusterName`.
 
 The bundle chart will:
 
 1. Create the necessary IAM role with proper permissions using Crossplane
 2. Deploy the AWS Load Balancer Controller to the workload cluster using a Flux HelmRelease
 
+## Configuration
+
+The bundle reads the AWS account, partition, region, VPC ID and OIDC provider of the cluster from the `<cluster>-crossplane-config` ConfigMap on the management cluster. Values that you set explicitly, such as `region` and `vpcId`, take precedence.
+
+On clusters without Kyverno (no `security-bundle`), set `kyverno.enabled: false`, since the `PolicyException` CRD is missing there. On clusters without `observability-bundle`, set `podLogs.enabled: false` and `serviceMonitor.enabled: false`.
+
+With `enableServiceMutatorWebhook: true` (the default), the controller handles every new `Service` of type `LoadBalancer` that has no `spec.loadBalancerClass`, instead of the cloud provider's built-in service controller. It creates an NLB for it, which is `internal` unless the `service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing` annotation is set. Existing `Service`s keep their load balancer. Set `enableServiceMutatorWebhook: false` if only `Service`s with `spec.loadBalancerClass: service.k8s.aws/nlb`, `Ingress`es and Gateway API resources should get load balancers from this controller.
+
+See also:
+
+- [EKS clusters](docs/eks.md)
+- [Gateway API](docs/gateway-api.md)
+
 ## Upgrade from v2.x.x to v3.x.x
 
-v3.x.x introduces a breaking change: a new installation method for the app. Please review the [v3 release notes](https://github.com/giantswarm/aws-load-balancer-controller-app/releases/tag/v3.0.0) for detailed upgrade instructions and migration steps.
+v3.x.x introduces a breaking change: a new installation method for the app. Please review the [v3 release notes](https://github.com/giantswarm/aws-lb-controller-bundle/releases/tag/v3.0.0) for detailed upgrade instructions and migration steps.
 
 ## Upgrade to upstream dependency model
 
