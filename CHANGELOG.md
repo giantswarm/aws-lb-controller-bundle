@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Read `region` and `vpcId` from the `<cluster>-crossplane-config` ConfigMap unless they are set explicitly, so the controller no longer needs the instance metadata service (IMDS) to find them.
-- Add the `kyverno.enabled` value (default `true`) to skip the Kyverno `PolicyException` on clusters without Kyverno, where the controller was never installed.
+- Make `PolicyException` CRs conditional on `kyverno.enabled` (default `true`) for use in adopted clusters that don't use Kyverno
 
 ## [6.1.0] - 2026-11-03
 
@@ -291,12 +291,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement network policy to allow egress traffic
 
 ### Updated
+
 - values.yaml with resource limits/requests
 - values.yaml validation schema
 
 ## [0.1.0] - 2021-11-19
 
 ### Added
+
 - Upstream helm chart
 - Automatic clusterName
 - App description in README.md
