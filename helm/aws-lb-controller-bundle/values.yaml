@@ -26,7 +26,7 @@ image:
 # For GS clusters the clusterName is set automatically.
 clusterName: ""
 
-# AWS region and VPC ID of the cluster. If empty, they are read from the
+# AWS region and VPC ID of the cluster. If empty, the bundle reads them from the
 # `<clusterName>-crossplane-config` ConfigMap, so the controller does not need
 # to reach the instance metadata service (IMDS) to find them.
 region: ""
@@ -57,6 +57,10 @@ serviceMonitor:
   enabled: true
   interval: 1m
 
+# Hand every new `Service` of type `LoadBalancer` without `spec.loadBalancerClass`
+# to this controller instead of the cloud provider. The controller creates an
+# NLB for it, which is `internal` unless the `Service` has the annotation
+# `service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing`.
 enableServiceMutatorWebhook: true
 
 configureDefaultAffinity: true
@@ -79,7 +83,7 @@ podLogs:
   enabled: true
   tenant: giantswarm
 
-# Creates the Kyverno PolicyException for the controller. Disable it on clusters
-# without Kyverno (no security-bundle), where the PolicyException CRD is missing.
+# Create the Kyverno `PolicyException` for the controller. Disable it on clusters
+# without Kyverno (no `security-bundle`), where the `PolicyException` CRD is missing.
 kyverno:
   enabled: true

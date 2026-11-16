@@ -75,33 +75,20 @@ Install the bundle chart on the management cluster, in the organization namespac
 ```bash
 kubectl gs deploy chart --bundle \
   --organization acme \
-  --target-cluster coyote \
+  --target-cluster mycluster \
   --chart-name aws-lb-controller-bundle \
   --version 6.1.0 \
   --values-file values.yaml \
-  --dry-run > coyote-aws-lb-controller-bundle.yaml
-kubectl apply -f coyote-aws-lb-controller-bundle.yaml
+  --dry-run > mycluster-aws-lb-controller-bundle.yaml
+kubectl apply -f mycluster-aws-lb-controller-bundle.yaml
 ```
 
-This creates an `OCIRepository` and a `HelmRelease` named `coyote-aws-lb-controller-bundle`. The bundle derives the cluster name from that release name. If you use another name, set `clusterName`.
+This creates an `OCIRepository` and a `HelmRelease` named `mycluster-aws-lb-controller-bundle`. The bundle derives the cluster name from that release name. If you use another name, set `clusterName`.
 
 The bundle chart will:
 
 1. Create the necessary IAM role with proper permissions using Crossplane
 2. Deploy the AWS Load Balancer Controller to the workload cluster using a Flux HelmRelease
-
-## Configuration
-
-The bundle reads the AWS account, partition, region, VPC ID and OIDC provider of the cluster from the `<cluster>-crossplane-config` ConfigMap on the management cluster. Values that you set explicitly, such as `region` and `vpcId`, take precedence.
-
-On clusters without Kyverno (no `security-bundle`), set `kyverno.enabled: false`, since the `PolicyException` CRD is missing there. On clusters without `observability-bundle`, set `podLogs.enabled: false` and `serviceMonitor.enabled: false`.
-
-With `enableServiceMutatorWebhook: true` (the default), the controller handles every new `Service` of type `LoadBalancer` that has no `spec.loadBalancerClass`, instead of the cloud provider's built-in service controller. It creates an NLB for it, which is `internal` unless the `service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing` annotation is set. Existing `Service`s keep their load balancer. Set `enableServiceMutatorWebhook: false` if only `Service`s with `spec.loadBalancerClass: service.k8s.aws/nlb`, `Ingress`es and Gateway API resources should get load balancers from this controller.
-
-See also:
-
-- [EKS clusters](docs/eks.md)
-- [Gateway API](docs/gateway-api.md)
 
 ## Upgrade from v2.x.x to v3.x.x
 

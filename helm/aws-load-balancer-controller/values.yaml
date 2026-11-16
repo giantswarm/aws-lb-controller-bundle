@@ -23,8 +23,8 @@ podLogs:
   enabled: true
   tenant: giantswarm
 
-# Creates the Kyverno PolicyException for the controller. Disable it on clusters
-# without Kyverno, where the PolicyException CRD is missing.
+# Create the Kyverno `PolicyException` for the controller. Disable it on clusters
+# without Kyverno, where the `PolicyException` CRD is missing.
 kyverno:
   enabled: true
 
