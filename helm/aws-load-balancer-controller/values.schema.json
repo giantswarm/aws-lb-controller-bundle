@@ -48,6 +48,24 @@
                 }
             }
         },
+        "kyvernoPolicyExceptions": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "legacy": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
         "upstream": {
             "type": "object",
             "additionalProperties": true

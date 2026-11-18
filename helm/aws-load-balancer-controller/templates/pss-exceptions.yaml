@@ -1,3 +1,4 @@
+{{- if and .Values.kyvernoPolicyExceptions.enabled .Values.kyvernoPolicyExceptions.legacy.enabled }}
 {{ if .Capabilities.APIVersions.Has "kyverno.io/v2/PolicyException" -}}
 apiVersion: kyverno.io/v2
 {{- else }}
@@ -6,9 +7,10 @@ apiVersion: kyverno.io/v2beta1
 kind: PolicyException
 metadata:
   name: {{ include "extras.fullname" . }}
-  namespace: policy-exceptions
+  namespace: giantswarm
   labels:
     {{- include "extras.labels" . | nindent 4 }}
+    policy.giantswarm.io/migrated-to-cel: "true"
   annotations:
     "helm.sh/hook": "pre-install,pre-upgrade"
 spec:
@@ -30,3 +32,4 @@ spec:
             - {{ .Release.Namespace }}
           names:
             - {{ include "extras.fullname" . }}*
+{{- end }}
