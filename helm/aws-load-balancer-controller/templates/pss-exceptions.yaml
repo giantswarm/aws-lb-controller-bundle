@@ -7,7 +7,7 @@ apiVersion: kyverno.io/v2beta1
 kind: PolicyException
 metadata:
   name: {{ include "extras.fullname" . }}
-  namespace: giantswarm
+  namespace: kube-system
   labels:
     {{- include "extras.labels" . | nindent 4 }}
     policy.giantswarm.io/migrated-to-cel: "true"

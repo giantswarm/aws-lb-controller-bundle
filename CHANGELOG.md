@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Move the `kyverno.io/v2` PolicyException from the `policy-exceptions` namespace to `giantswarm`.
+- Move the `kyverno.io/v2` PolicyException from the `policy-exceptions` namespace to `kube-system`.
 
 ## [6.1.0] - 2026-11-03
 
