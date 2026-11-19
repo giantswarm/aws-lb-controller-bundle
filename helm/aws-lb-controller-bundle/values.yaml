@@ -26,6 +26,12 @@ image:
 # For GS clusters the clusterName is set automatically.
 clusterName: ""
 
+# AWS region and VPC ID of the cluster. If empty, the bundle reads them from the
+# `<clusterName>-crossplane-config` ConfigMap, so the controller does not need
+# to reach the instance metadata service (IMDS) to find them.
+region: ""
+vpcId: ""
+
 replicaCount: 2
 
 resources:
@@ -72,3 +78,8 @@ verticalPodAutoscaler:
 podLogs:
   enabled: true
   tenant: giantswarm
+
+# Create the Kyverno `PolicyException` for the controller. Disable it on clusters
+# without Kyverno (no `security-bundle`), where the `PolicyException` CRD is missing.
+kyverno:
+  enabled: true

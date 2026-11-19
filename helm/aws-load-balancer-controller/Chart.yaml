@@ -9,7 +9,7 @@ annotations:
   application.giantswarm.io/team: phoenix
 sources:
   - https://github.com/aws/eks-charts
-  - https://github.com/giantswarm/aws-load-balancer-controller-app
+  - https://github.com/giantswarm/aws-lb-controller-bundle
 maintainers:
   - name: giantswarm/team-phoenix
 dependencies:

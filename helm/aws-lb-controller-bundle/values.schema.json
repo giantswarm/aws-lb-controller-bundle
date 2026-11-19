@@ -36,6 +36,15 @@
         "clusterName": {
             "type": "string"
         },
+        "kyverno": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "podLogs": {
             "type": "object",
             "additionalProperties": true,
@@ -47,6 +56,9 @@
                     "type": "string"
                 }
             }
+        },
+        "region": {
+            "type": "string"
         },
         "verticalPodAutoscaler": {
             "type": "object",
@@ -65,6 +77,9 @@
                     }
                 }
             }
+        },
+        "vpcId": {
+            "type": "string"
         }
     }
 }
