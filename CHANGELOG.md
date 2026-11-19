@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replace `ociRepositoryUrl` with `apps.awsLoadBalancerController` (`chartName`, `version`), like the other bundles. The OCI URL is now derived from `chartName` (`oci://gsoci.azurecr.io/charts/giantswarm/<chartName>`), so a value that pointed to another registry or path needs another way to be set.
 - The tag comes from `apps.awsLoadBalancerController.version`, which falls back to the chart `appVersion` when empty (the default), so releases keep moving the tag as before. The rendered `OCIRepository` is otherwise unchanged.
-- Move the `kyverno.io/v2` PolicyException from the `policy-exceptions` namespace to `giantswarm`.
+- Move the `kyverno.io/v2` PolicyException from the `policy-exceptions` namespace to `kube-system`.
 
 ## [6.2.0] - 2026-11-19
 
