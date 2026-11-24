@@ -1,6 +1,8 @@
 suite: member OCIRepository
 templates:
   - templates/helmreleases.yaml
+chart:
+  appVersion: 7.7.7
 set:
   clusterName: foo
 kubernetesProvider:
@@ -42,7 +44,7 @@ tests:
       - notExists:
           path: metadata.labels["bundle.giantswarm.io/member-chart"]
 
-  - it: takes URL and tag from apps.awsLoadBalancerController
+  - it: takes URL from apps.awsLoadBalancerController and the tag from the chart appVersion
     documentSelector:
       path: kind
       value: OCIRepository
@@ -52,7 +54,7 @@ tests:
           value: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-controller
       - equal:
           path: spec.ref.tag
-          value: "5.2.0"
+          value: "7.7.7"
 
   - it: follows apps.awsLoadBalancerController.version and chartName
     set:
@@ -73,14 +75,3 @@ tests:
       - equal:
           path: spec.ref.tag
           value: "9.9.9"
-
-  - it: still honours the legacy ociRepositoryUrl override
-    set:
-      ociRepositoryUrl: oci://registry.example.com/mirror/aws-load-balancer-controller
-    documentSelector:
-      path: kind
-      value: OCIRepository
-    asserts:
-      - equal:
-          path: spec.url
-          value: oci://registry.example.com/mirror/aws-load-balancer-controller

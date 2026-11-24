@@ -1,0 +1,35 @@
+suite: workload values
+templates:
+  - templates/configmap.yaml
+set:
+  clusterName: foo
+kubernetesProvider:
+  scheme:
+    "v1/ConfigMap":
+      gvr:
+        version: "v1"
+        resource: "configmaps"
+      namespaced: true
+  objects:
+    - kind: ConfigMap
+      apiVersion: v1
+      metadata:
+        name: foo-crossplane-config
+        namespace: NAMESPACE
+      data:
+        values: |
+          accountID: "111111111111"
+          awsPartition: aws
+          region: eu-west-1
+          oidcDomains: [oidc.example.com]
+          awsCluster:
+            vpcId: vpc-1
+tests:
+  - it: does not forward apps to the workload chart
+    asserts:
+      - matchRegex:
+          path: data.values
+          pattern: nameOverride
+      - notMatchRegex:
+          path: data.values
+          pattern: chartName

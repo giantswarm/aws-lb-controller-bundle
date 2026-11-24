@@ -23,12 +23,12 @@
                         "version": {
                             "type": "string"
                         }
-                    }
+                    },
+                    "required": [
+                        "chartName"
+                    ]
                 }
             }
-        },
-        "ociRepositoryUrl": {
-            "type": "string"
         },
         "valuesFromSecret": {
             "type": "string"

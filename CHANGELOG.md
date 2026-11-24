@@ -13,8 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The bundle now takes the chart name and version from `apps.awsLoadBalancerController` (`chartName`, `version`), like the other bundles. The OCI URL is built from `chartName` and the tag comes from `version` (default `5.2.0`, the former `appVersion`). The rendered `OCIRepository` is otherwise unchanged.
-- `ociRepositoryUrl` is deprecated but still works as an override of the URL. It now defaults to empty.
+- Breaking: `ociRepositoryUrl` is removed in favour of `apps.awsLoadBalancerController` (`chartName`, `version`), like the other bundles. The OCI URL is now derived from `chartName` (`oci://gsoci.azurecr.io/charts/giantswarm/<chartName>`), so a value that pointed to another registry or path needs another way to be set.
+- The tag comes from `apps.awsLoadBalancerController.version`, which falls back to the chart `appVersion` when empty (the default), so releases keep moving the tag as before. The rendered `OCIRepository` is otherwise unchanged.
 
 ## [6.2.0] - 2026-11-19
 

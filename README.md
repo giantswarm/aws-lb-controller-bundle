@@ -54,7 +54,7 @@ Management Cluster (bundle chart)          Workload Cluster (workload chart)
    - **Region and VPC**: Sets `region` and `vpcId` from the `crossplane-config` ConfigMap unless they are set explicitly, so the controller does not need the instance metadata service (IMDS) to find them.
    - **Upstream routing**: All upstream values are placed under the `upstream:` key.
    - **Extras routing**: `verticalPodAutoscaler`, `networkPolicy`, `podLogs`, `kyverno` and `global` are passed at top level (not under `upstream:`).
-   - **Bundle-only exclusion**: `apps`, `ociRepositoryUrl` (deprecated URL override), `bundleNameOverride`, and `fullBundleNameOverride` are never forwarded. `apps.awsLoadBalancerController.version` is the tag of the workload chart in the registry; bump it by hand when releasing a new workload chart.
+   - **Bundle-only exclusion**: `apps`, `bundleNameOverride`, and `fullBundleNameOverride` are never forwarded. `apps.awsLoadBalancerController.chartName` and `version` pick the workload chart in the registry; an empty `version` falls back to the bundle chart's `appVersion`, which releases keep updating.
 3. The transformed values are stored in a ConfigMap on the management cluster.
 4. A Flux HelmRelease references this ConfigMap via `valuesFrom` and deploys the workload chart to the workload cluster. When `podLogs.enabled` is true, it depends on the cluster's `alloy-podlogs-crds` HelmRelease (deployed by `observability-bundle`).
 
