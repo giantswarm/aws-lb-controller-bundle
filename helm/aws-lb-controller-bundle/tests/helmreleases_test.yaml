@@ -1,0 +1,86 @@
+suite: member OCIRepository
+templates:
+  - templates/helmreleases.yaml
+set:
+  clusterName: foo
+kubernetesProvider:
+  scheme:
+    "v1/ConfigMap":
+      gvr:
+        version: "v1"
+        resource: "configmaps"
+      namespaced: true
+  objects:
+    - kind: ConfigMap
+      apiVersion: v1
+      metadata:
+        name: foo-crossplane-config
+        namespace: NAMESPACE
+      data:
+        values: |
+          accountID: "111111111111"
+          awsPartition: aws
+          region: eu-west-1
+          oidcDomains: [oidc.example.com]
+          awsCluster:
+            vpcId: vpc-1
+tests:
+  - it: labels the member OCIRepository with the chart name
+    documentSelector:
+      path: kind
+      value: OCIRepository
+    asserts:
+      - equal:
+          path: metadata.labels["bundle.giantswarm.io/member-chart"]
+          value: aws-load-balancer-controller
+
+  - it: does not label the member HelmRelease
+    documentSelector:
+      path: kind
+      value: HelmRelease
+    asserts:
+      - notExists:
+          path: metadata.labels["bundle.giantswarm.io/member-chart"]
+
+  - it: takes URL and tag from apps.awsLoadBalancerController
+    documentSelector:
+      path: kind
+      value: OCIRepository
+    asserts:
+      - equal:
+          path: spec.url
+          value: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-controller
+      - equal:
+          path: spec.ref.tag
+          value: "5.2.0"
+
+  - it: follows apps.awsLoadBalancerController.version and chartName
+    set:
+      apps:
+        awsLoadBalancerController:
+          chartName: other-chart
+          version: 9.9.9
+    documentSelector:
+      path: kind
+      value: OCIRepository
+    asserts:
+      - equal:
+          path: metadata.labels["bundle.giantswarm.io/member-chart"]
+          value: other-chart
+      - equal:
+          path: spec.url
+          value: oci://gsoci.azurecr.io/charts/giantswarm/other-chart
+      - equal:
+          path: spec.ref.tag
+          value: "9.9.9"
+
+  - it: still honours the legacy ociRepositoryUrl override
+    set:
+      ociRepositoryUrl: oci://registry.example.com/mirror/aws-load-balancer-controller
+    documentSelector:
+      path: kind
+      value: OCIRepository
+    asserts:
+      - equal:
+          path: spec.url
+          value: oci://registry.example.com/mirror/aws-load-balancer-controller
