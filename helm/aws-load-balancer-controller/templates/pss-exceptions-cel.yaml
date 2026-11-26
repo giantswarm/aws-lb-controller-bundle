@@ -1,0 +1,28 @@
+{{- if and .Values.kyverno.enabled .Values.kyvernoPolicyExceptions.enabled }}
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: {{ include "extras.fullname" . }}
+  namespace: kube-system
+  labels:
+    {{- include "extras.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+spec:
+  policyRefs:
+    - name: disallow-capabilities-strict
+      kind: ValidatingPolicy
+    # restrict-sa-automount-sa-token is a supplemental policy and usually not
+    # enabled. It is excepted because the aws-load-balancer-controller
+    # ServiceAccount fails it when the policy is enforced.
+    - name: restrict-sa-automount-sa-token
+      kind: ValidatingPolicy
+  matchConditions:
+    - name: aws-load-balancer-controller-workloads
+      # ServiceAccount is matched for restrict-sa-automount-sa-token.
+      expression: >-
+        request.kind.kind in ['Deployment', 'ReplicaSet', 'Pod', 'ServiceAccount'] &&
+        request.namespace == '{{ .Release.Namespace }}' &&
+        has(object.metadata.name) &&
+        (object.metadata.name == '{{ include "extras.fullname" . }}' || object.metadata.name.startsWith('{{ include "extras.fullname" . }}-'))
+{{- end }}
