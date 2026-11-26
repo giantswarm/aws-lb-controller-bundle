@@ -9,8 +9,26 @@
         "fullBundleNameOverride": {
             "type": "string"
         },
-        "ociRepositoryUrl": {
-            "type": "string"
+        "apps": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "awsLoadBalancerController": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "chartName": {
+                            "type": "string"
+                        },
+                        "version": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "chartName"
+                    ]
+                }
+            }
         },
         "valuesFromSecret": {
             "type": "string"

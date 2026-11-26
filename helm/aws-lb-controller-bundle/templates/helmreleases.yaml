@@ -1,4 +1,5 @@
 {{- $clusterName := (include "cluster-name" .) -}}
+{{- $app := .Values.apps.awsLoadBalancerController -}}
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
@@ -6,11 +7,12 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller-bundle.labels" . | nindent 4 }}
+    bundle.giantswarm.io/member-chart: {{ $app.chartName }}
 spec:
-  url: {{ .Values.ociRepositoryUrl }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/{{ $app.chartName }}
   interval: 1h
   ref:
-    tag: {{ .Chart.AppVersion }}
+    tag: {{ $app.version | default $.Chart.AppVersion | quote }}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

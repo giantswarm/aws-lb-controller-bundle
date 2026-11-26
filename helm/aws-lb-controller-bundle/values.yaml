@@ -5,7 +5,13 @@
 bundleNameOverride: ""
 fullBundleNameOverride: ""
 
-ociRepositoryUrl: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-controller
+# Chart deployed by the bundle, in the same shape as the other bundles. The OCIRepository
+# URL is oci://gsoci.azurecr.io/charts/giantswarm/<chartName>. The tag is `version`; when
+# empty it is the bundle chart's appVersion, which releases keep updating.
+apps:
+  awsLoadBalancerController:
+    chartName: aws-load-balancer-controller
+    version: ""
 
 # Optional: name of a Secret to inject as additional values into the HelmRelease
 valuesFromSecret: ""
